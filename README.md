@@ -222,7 +222,7 @@ Tempo da medição 23: 113.167438s
 ===============================
 ```
 
-### Plotando o Gráfico
+#### Plotando o Gráfico:
 De forma similar ao [modelo fornecido](https://colab.research.google.com/drive/1dzcm7nBqqzQAtD6XOZWmCvWcB6HCEd0Z?usp=sharing#scrollTo=1qlmCkWb_VqV) para a explanação do problema, foi utilizado o código abaixo para plotagem do gráfico comparatório, inserindo então a curva de tempo por número de medições do Algoritmo Paralelizado.
 
 ```Python
@@ -240,5 +240,5 @@ plt.show()
 
 ![image](https://user-images.githubusercontent.com/94007911/187323310-99b6acad-a5ac-4fc1-8819-f369bf08721c.png)
 
-### Analisando os Resultados
+#### Analisando os Resultados:
 É evidente que os dois modelos de algoritmos obtiveram tempos de processamento iguais ou muito próximos. Isso se deu devido à uma limitação estabelecida pelo Google Colab, fazendo com que a curva de tempo do modelo paralelizado se comportasse de maneira semelhante ao modelo serial. A implementação desse código em uma máquina sem restrições de uso de núcleos de processamento e virtualização certamente resultaria em uma diferença clara no tempo de processamento para o modelo paralelizado, visto que múltiplos núcleos estariam realizando simultaneamente os cálculos que apenas um núcleo estaria realizando de forma serial no modelo do Algoritmo Serial.
