@@ -6,14 +6,14 @@ Repositório criado para compartilhar a atividade avaliativa da disciplina de Si
 
 # Explicando o Código
 
-### • Configuração
+## • Configuração
 
 É necessário incialmente utilizar o comando `!pip install mpi4py` para que a máquina do [Google Colab](https://colab.research.google.com/) receba o pacote mpi4py. Ele permite o envio e recebimento de dados em texto para diferentes processos.
 
-### • O Código
+## • O Código
 
-#### Algoritmo Serial:
-Primeiramente é calculado o tempo de execução do algoritmo serial, para isso foi utilizado o [modelo fornecido](https://colab.research.google.com/drive/1dzcm7nBqqzQAtD6XOZWmCvWcB6HCEd0Z?usp=sharing#scrollTo=1qlmCkWb_VqV) na explanação no problema, conforme mostrado abaixo:
+### Algoritmo Serial:
+Primeiramente foi utilizado o [modelo fornecido](https://colab.research.google.com/drive/1dzcm7nBqqzQAtD6XOZWmCvWcB6HCEd0Z?usp=sharing#scrollTo=1qlmCkWb_VqV) na explanação no problema para calcular o tempo de execução do algoritmo serial, conforme mostrado abaixo:
 
 ```Python
 %%writefile alg_serial.py
@@ -116,7 +116,7 @@ Tempo da medição 23: 110.447614s
 ================================
 ```
 
-#### Algoritmo Paralelizado:
+### Algoritmo Paralelizado:
 Utilizando o pacote `mpi4py` foi possível desenvolver o código abaixo, que recebe como parâmetro um número referente ao número de processos desejados para a paralelização `size = comm.Get_size()`, e assim como no algoritmo serial, recebe também um número referente tamanho das medições que serão calculadas `tam_medicoes = int(sys.argv[1])`. Os processos são então inicializados e têm seus PID's definidos aqui por `rank = comm.Get_rank()`. Em seguida são utilizados laços de repetições e verificações para separar o tamanho da amostragem baseado no tamanho das medições predefinido `size`, para que então o processo raíz (PID = 0) encaminhe qual o espaço amostral de cada processo baseado nos seus PID's através da chamada `comm.send(medicao, i)`. Os demais processos recebem seus espaços amostrais de medição através da chamada `medicao = comm.recv()`.
 
 De forma similar ao Algoritmo Serial são feitos os cálculos e as comparações necessárias e então o processo raíz aguarda o recebimento dos resultados dos demais processos através de um laço de repetição da chamada `solucao.append(comm.recv())`, que armazena os resultados em um vetor de `solucao`. Os demais processos enviam seus resultados para o processo raíz (PID = 0) através da chamada `comm.send(solucao, 0)`. Após todos os processos eviarem suas soluções, o processo zero encerra a execução com o vetor `solucao` preenchido com todas as soluções encontradas pelos processos.
